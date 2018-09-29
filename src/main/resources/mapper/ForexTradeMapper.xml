@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ignite.persistence.mapper.TestDataMapper" >
+    <resultMap id="TestData" type="ignite.persistence.bean.TestData" >
+        <id column="name" property="name" jdbcType="VARCHAR" />
+        <result column="value" property="value" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        name, value
+    </sql>
+ 
+    <select id="findAll" resultMap="TestData" fetchSize="1000" >
+       SELECT 
+       <include refid="Base_Column_List" />
+	   FROM testdata
+    </select>
+  
+  	<select id="find" resultMap="TestData" parameterType="Integer" >
+       SELECT 
+       <include refid="Base_Column_List" />
+	   FROM testdata
+	   LIMIT #{0}, #{1}
+    </select>
+  
+  	<insert id="insertTestData" parameterType="STRING" >
+  		insert into testdata 
+  		(name, value)
+  		values
+  		(#{0}, #{1})
+  	</insert>
+  	
+  	<insert id="insertBatchData" parameterType="TestData">
+  		insert into testdata
+  		(name, value)
+  		values
+  		<foreach collection="list" item="TestData" separator=",">
+  			(#{TestData.name}, #{TestData.value})
+  		</foreach>
+  	</insert>
+</mapper>

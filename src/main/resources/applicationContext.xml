@@ -50,11 +50,11 @@
 							    </bean>
 							 </property> -->
 							 
-							 <property name="userAttributes">
+							 <!-- <property name="userAttributes">
 							 		<map>
 							 				<entry key="DOMAIN" value="PERSIST"></entry>
 							 		</map>
-							 </property>
+							 </property> -->
 	         </bean>
 	     </property>
 	 </bean>
